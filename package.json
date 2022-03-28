@@ -1,0 +1,11 @@
+{
+  "name": "task1-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "bin": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alamega/mitso_nodejs.git"
+  }
+}
