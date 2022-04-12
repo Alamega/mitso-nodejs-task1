@@ -1,34 +1,44 @@
 #!/usr/bin/env node
+const task1 = require('./task1-1.js')
+const task2 = require('./task1-2.js')
+const fs = require('fs');
 
-function duplicateEncode(word) {
-    word = word.toLowerCase();
-    var word = word.split('');
-    var result = "";
-    for (let i = 0; i < word.length; i++) {
-        if (word.indexOf(word[i])==word.lastIndexOf(word[i])) {
-           result+=word[i];
+var argumentiki = process.argv.slice(2);
+
+switch (argumentiki[0]) {
+    case "1":
+        if (argumentiki[1].includes('.txt')) {
+            let fileContent = fs.readFileSync(argumentiki[1], "utf8");
+            console.log(task1.duplicateEncode(fileContent)); 
+            if (argumentiki[2] == "-o") {
+                fs.writeFileSync("output.txt", task1.duplicateEncode(fileContent))
+            }   
         }
         else
         {
-            result+=")";
+            console.log(task1.duplicateEncode(argumentiki[1]));
+            if (argumentiki[2] == "-o") {
+                fs.writeFileSync("output.txt", task1.duplicateEncode(argumentiki[1]));
+            }   
+        }    
+        break;
+    case "2":
+        if (argumentiki[1].includes('.txt')) {
+            let fileContent = fs.readFileSync(argumentiki[1], "utf8");
+            console.log(task2.multiplicationTable(fileContent));
+            if (argumentiki[2] == "-o") {
+                fs.writeFileSync("output.txt", task2.multiplicationTable(fileContent).toString());
+            }  
         }
-    }
-    word = result.split('');
-    result = "";
-    for (let i = 0; i < word.length; i++) {
-            if (word[i]!=")") {
-                result+="(";
-            }
-            else
-            {
-                result+=word[i];
-            }
-
-    }
-    console.log(result);
+        else
+        {
+            console.log(task2.multiplicationTable(argumentiki[1]));
+            if (argumentiki[2] == "-o") {
+                fs.writeFileSync("output.txt",  task2.multiplicationTable(argumentiki[1]).toString());
+            }  
+        }
+        break;
+    default:
+        console.log("Обшибка");
+        break;
 }
-
-duplicateEncode("din") // -> "((("
-duplicateEncode("recede") // -> "()()()"
-duplicateEncode("Success") // -> ")())())"
-duplicateEncode("(( @") // -> "))(("
